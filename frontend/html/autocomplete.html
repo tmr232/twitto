@@ -53,16 +53,19 @@
                     .autocomplete({
                         minLength: 0,
                         source: function( request, response ) {
+                            // Get the current term (separated by ' ' from everything before it and located before the
+                            // caret.
                             var fullTerm = getCurrentTerm(request.term);
+                            // Get the term value (strip '@')
                             var term = getTermValue(fullTerm);
-                            console.log("Term: " + term);
                             if (isStudentTerm(fullTerm)) {
+                                // If starting with '@', get the students list
                                 response($.ui.autocomplete.filter(studentTags, term));
-//                                response(studentTags);
                             } else if (isGroupTerm(fullTerm)) {
+                                // If starting with '@@', get the groups list
                                 response($.ui.autocomplete.filter(groupTags, term));
-//                                response(groupTags );
                             } else {
+                                // If not a valid magic - return nothing.
                                 response([]);
                             }
                         },
@@ -71,6 +74,7 @@
                             return false;
                         },
                         select: function( event, ui ) {
+                            // Ugly and only partially working hack to autocomplete in the middle of a line.
                             var trailingText = this.value.slice(this.selectionStart);
                             var currentText = this.value.slice(0, this.selectionStart);
                             var terms = currentText.split(" ");
