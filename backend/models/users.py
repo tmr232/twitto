@@ -39,7 +39,15 @@ class Teacher(Document):
 
         if not self.password_salt and self.password:  # we only generate a new salt if its not set
             self.password_salt = os.urandom(configuration.PASSWORD_SALT_LENGTH)
-            self.password = configuration.PASSWORD_HASH_FUNCTION(self.password + self.password_salt).hexdigest()
+            self.password = configuration.PASSWORD_HASH_FUNCTION(self.password_salt + str(self.password)).hexdigest()
+
+    def update_password(self, new_password):
+        """
+        Saves the hashed new_password as the new password for this Teacher.
+        """
+        if not self.password_salt:
+            self.password_salt = os.urandom(configuration.PASSWORD_SALT_LENGTH)
+        self.password = configuration.PASSWORD_HASH_FUNCTION(self.password_salt + str(new_password)).hexdigest()
 
 
 class Group(Document):

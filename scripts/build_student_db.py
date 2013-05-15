@@ -2,6 +2,7 @@ from mongoengine import *
 from backend.models.users import Student, Teacher
 import backend.configuration as configuration
 
+
 print "Connecting to database", configuration.DATABASE_NAME
 connect(configuration.DATABASE_NAME)
 

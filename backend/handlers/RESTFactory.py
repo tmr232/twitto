@@ -15,13 +15,13 @@ class RESTHandler(tornado.web.RequestHandler):
 
     MODEL = None
 
-    @user_required
+    #@user_required
     def get(self, *args, **kwargs):
         """
         The GET Method function handler.
         returns the items of the given model.
         """
-        items = [item.serialize() for item in self.__class__.MODEL.objects]
+        items = [item.to_json() for item in self.__class__.MODEL.objects]
         self.write(json.dumps(items))
 
     @user_required
@@ -31,7 +31,7 @@ class RESTHandler(tornado.web.RequestHandler):
         creates a new item and adds it to the database.
         """
         new_item_data = json.loads(self.request.body)
-        new_item_model = self.__class__.MODEL.fromjson(new_item_data)
+        new_item_model = self.__class__.MODEL.from_json(new_item_data)
         new_item_model.save()
 
     @user_required
