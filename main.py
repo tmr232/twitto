@@ -23,14 +23,14 @@ class TwittoApp(tornado.web.Application):
         rest_factory = RESTHandlerFactory()
 
         handlers = [
-            (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': "css"}),
-            (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': "js"}),
-            (r'/img/(.*)', tornado.web.StaticFileHandler, {'path': "img"}),
+            (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': "frontend/css"}),
+            (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': "frontend/js"}),
+            (r'/img/(.*)', tornado.web.StaticFileHandler, {'path': "frontend/img"}),
 
             (r'/students', rest_factory.get_model_rest_handler(Student)),
             ]
 
-        settings = {"cookie_secret" : configuration.COOKIE_SECRET}
+        settings = {"cookie_secret": configuration.COOKIE_SECRET}
         super(TwittoApp, self).__init__(handlers, **settings)
 
 if __name__ == "__main__":
