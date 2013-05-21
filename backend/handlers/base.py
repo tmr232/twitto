@@ -12,19 +12,22 @@ class IndexHandler(tornado.web.RequestHandler):
     """
     @user_required
     def get(self):
-        loader = template.Loader("templates")
+        loader = template.Loader("frontend")
 
         self.write(
-            loader.load("index.html").generate(logo="logo.jpg", title="bka", tweets=[], user=self.user))
+            loader.load("index.html").generate(logo="logo.jpg", title="bka", user=self.user))
 
 
 class LoginHandler(tornado.web.RequestHandler):
+    """
+    The Teacher Login handler.
+    """
     def get(self):
         error = self.get_argument("error", None)
 
-        loader = template.Loader("templates")
+        loader = template.Loader("frontend")
         self.write(
-            loader.load("login.html").generate(logo="logo.jpg", title="bla", tweets=[], error=error))
+            loader.load("login.html").generate(logo="logo.jpg", title="bla", error=error))
 
     def post(self):
         """
@@ -49,38 +52,41 @@ class LoginHandler(tornado.web.RequestHandler):
         self.redirect("/")
 
 
-# class RegisterHandler(tornado.web.RequestHandler):
-#     def get(self):
-#         error = self.get_argument("error", None)
-#         loader = template.Loader("templates")
-#         self.write(
-#             loader.load("register.html").generate(logo=SITE_LOGO, title=SITE_TITLE, tweets=Tweet.objects, error=error))
-#
-#     def post(self):
-#         if self.get_argument("admin-password") != ADMIN_PASSWORD:
-#             self.redirect("/register?error=wrong-admin-password")
-#             return
-#
-#         if self.get_argument("password") != self.get_argument("confirm"):
-#             self.redirect("/register?error=password-not-confirmed")
-#             return
-#
-#         if User.objects.filter(username=self.get_argument("username")).count() > 0:
-#             self.redirect("/register?error=user-exists")
-#             # if username already exists then delete it. mwahahaha
-#             # User.objects.get(username = self.get_argument("username")).delete()
-#
-#             return
-#
-#         new_user = User(
-#             username=self.get_argument("username"),
-#             password=hash_password(self.get_argument("password")),
-#             year=int(self.get_argument("year"))
-#         )
-#
-#         new_user.save()
-#         self.set_secure_cookie("user_id", unicode(new_user.id))
-#         self.redirect("/")
+class RegisterHandler(tornado.web.RequestHandler):
+    """
+    The handler for the Teacher registration page.
+    """
+    def get(self):
+        error = self.get_argument("error", None)
+        loader = template.Loader("frontend")
+        self.write(
+            loader.load("register.html").generate(logo="logo.jpg", title="bla", error=error))
+
+    def post(self):
+        if self.get_argument("admin-password") != configuration.ADMIN_PASSWORD:
+            self.redirect("/register?error=wrong-admin-password")
+            return
+
+        if self.get_argument("password") != self.get_argument("confirm"):
+            self.redirect("/register?error=password-not-confirmed")
+            return
+
+        if Teacher.objects.filter(username=self.get_argument("username")).count() > 0:
+            self.redirect("/register?error=user-exists")
+            return
+
+        new_teacher = Teacher(
+            username=self.get_argument("username"),
+            first_name=self.get_argument("first_name"),
+            last_name=self.get_argument("last_name"),
+            email=self.get_argument("email"),
+            password=self.get_argument("password"),
+            year=int(self.get_argument("year"))
+        )
+
+        new_teacher.save()
+        self.set_secure_cookie("user_id", unicode(new_teacher.id))
+        self.redirect("/")
 
 
 class LogoutHandler(tornado.web.RequestHandler):
