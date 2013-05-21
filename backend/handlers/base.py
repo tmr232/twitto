@@ -39,8 +39,12 @@ class LoginHandler(tornado.web.RequestHandler):
             user = Teacher.objects.get(
                 username=self.get_argument("username"),
             )
-            checked_hash = configuration.PASSWORD_HASH_FUNCTION(user["password_salt"] + self.get_argument("password"))
-            if user.password != checked_hash:
+            print user
+            print user["password"]
+            print str(self.get_argument("password"))
+            checked_hash = configuration.PASSWORD_HASH_FUNCTION(user["password_salt"] + str(self.get_argument("password")))
+            print checked_hash.hexdigest()
+            if user.password != checked_hash.hexdigest():
                 self.redirect("/login?error=wrong-username-password")
                 return
 
