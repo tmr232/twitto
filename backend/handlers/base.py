@@ -15,7 +15,7 @@ class IndexHandler(tornado.web.RequestHandler):
         loader = template.Loader("frontend")
 
         self.write(
-            loader.load("index.html").generate(logo="logo.jpg", title="bka", user=self.user))
+            loader.load("index.html").generate(logo="logo.jpg", title=configuration.SITE_NAME, user=self.user))
 
 
 class LoginHandler(tornado.web.RequestHandler):
@@ -27,7 +27,7 @@ class LoginHandler(tornado.web.RequestHandler):
 
         loader = template.Loader("frontend")
         self.write(
-            loader.load("login.html").generate(logo="logo.jpg", title="bla", error=error))
+            loader.load("login.html").generate(logo="logo.jpg", title=configuration.SITE_NAME, error=error))
 
     def post(self):
         """
@@ -64,7 +64,7 @@ class RegisterHandler(tornado.web.RequestHandler):
         error = self.get_argument("error", None)
         loader = template.Loader("frontend")
         self.write(
-            loader.load("register.html").generate(logo="logo.jpg", title="bla", error=error))
+            loader.load("register.html").generate(logo="logo.jpg", title=configuration.SITE_NAME, error=error))
 
     def post(self):
         if self.get_argument("admin-password") != configuration.ADMIN_PASSWORD:

@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 """
 configuration.py
 This module defines the configuration for the Backend server.
@@ -17,3 +18,4 @@ PASSWORD_HASH_FUNCTION = hashlib.sha256
 
 # Application Configuration
 APP_PORT = 8888
+SITE_NAME = u"טוויטו"
