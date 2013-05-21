@@ -16,7 +16,7 @@ twitto
 **Tweets**
 * add post tweet logic
 * add Websocket logic for tweet streaming
-* Integrate [PQL](http://github/alonho/pql) to allow easy tweet filtering by the user.
+* Integrate [PQL](http://www.github.com/alonho/pql) to allow easy tweet filtering by the user.
 
 **Typeahead**
 * Create typeahead backend handlers for the following:
