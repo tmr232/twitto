@@ -25,5 +25,10 @@ twitto
     3. Groups (/typeahead/groups)
 * Figure out the way to do this in the database (which models and what should be the indexes).
 
+## Student Pages
+* Customize Student Pages to contain stuff like:
+    * Requests
+    * Punishments
+    * Stuff to keep track of (like difficulty in some areas and such)
 ## Frontend
 
