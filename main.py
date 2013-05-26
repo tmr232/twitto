@@ -4,7 +4,8 @@ from tornado.options import define, options
 from backend import configuration
 from backend.handlers.RESTFactory import RESTHandlerFactory
 from backend.handlers.base import *
-from backend.models.users import Student
+from backend.models.users import Student, Group
+from backend.models.course import *
 import mongoengine
 
 define("port", default=configuration.APP_PORT, help="The port to listen on")
@@ -42,6 +43,9 @@ class TwittoApp(tornado.web.Application):
         # noinspection PyTypeChecker
         handlers.extend([
             (r'/students', rest_factory.get_model_rest_handler(Student)),
+            (r'/groups', rest_factory.get_model_rest_handler(Group)),
+            (r'/lessons', rest_factory.get_model_rest_handler(Lesson)),
+            (r'/subjects', rest_factory.get_model_rest_handler(Subject)),
         ])
 
         settings = {"cookie_secret": configuration.COOKIE_SECRET}

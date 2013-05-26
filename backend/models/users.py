@@ -1,5 +1,6 @@
 from mongoengine import *
 from backend import configuration
+from backend.models import *
 import os
 
 
@@ -15,8 +16,12 @@ class Student(Document):
     domain_username = StringField()  # The Student's username in Microsoft Windows Domain
     picture_path = StringField()  # The path to the student's picture in the server
 
+    meta = {
+        "indexes": ["number", "domain_username"]
+    }
 
-class Teacher(Document):
+
+class Teacher(SerializableModel):
     """
     Represents a Teacher in the Course.
     """
@@ -29,6 +34,8 @@ class Teacher(Document):
     email = EmailField()
     # The students this teacher wants to hear about. we delete references automatically when students are deleted.
     followed_students = ListField(ReferenceField("Student", reverse_delete_rule=PULL))
+
+    IGNORE_FIELDS = ["password_salt", "password"]
 
     def __init__(self, **values):
         """
