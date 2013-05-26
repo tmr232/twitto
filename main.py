@@ -4,13 +4,8 @@ from tornado.options import define, options
 from backend import configuration
 from backend.handlers.RESTFactory import RESTHandlerFactory
 from backend.handlers.base import *
-<<<<<<< HEAD
-from backend.handlers.tweet_handlers import PostHandler
-from backend.models.users import Student
-=======
 from backend.models.users import Student, Group
 from backend.models.course import *
->>>>>>> ff15da55a042e527266a57025a769b5e7b967c83
 import mongoengine
 
 define("port", default=configuration.APP_PORT, help="The port to listen on")
