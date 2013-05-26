@@ -1,8 +1,10 @@
+body{
+}
 .navbar .brand {
     float: right;
 }
 .form-horizontal .control-label {
-    float: right;
+    text-align: right;
 }
 .navbar-static-top .navbar-inner {
 	border-radius: 0px;
