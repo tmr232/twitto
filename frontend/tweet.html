@@ -1,9 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form class="well form-horizontal span6 offset2" style="margin-top: 20px" method="post">
+            <h4>ציוץ</h4>
+            <div class="control-group">
+                <label class="control-label" for="content">תוכן</label>
+                <div class="controls">
+                    <input type="text" name="content" id="content" placeholder="תוכן">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-large btn-primary">צייץ</button>
+                </div>
+            </div>
+        </form>
 
-</body>
-</html>
+    </div>
+</div>
+
+{% end %}
