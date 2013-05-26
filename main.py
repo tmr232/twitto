@@ -39,6 +39,7 @@ class TwittoApp(tornado.web.Application):
         ])
 
         # REST API
+        # noinspection PyTypeChecker
         handlers.extend([
             (r'/students', rest_factory.get_model_rest_handler(Student)),
         ])
