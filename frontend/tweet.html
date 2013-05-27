@@ -19,5 +19,97 @@
 
     </div>
 </div>
+        <link rel="stylesheet" href="/css/jquery-ui.css" />
+    <script src="/js/jquery-2.0.1.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+        <script>
+             $(function() {
+
+            var studentTags = [
+                    {"_id": {"$oid": "51a397505b25233b594423e0"}, "first_name": "nafdsfsme", "last_name": "last", "number": "3", "year": 2013.0}
+            ];
+
+            var groupTags = [
+                    "CoolGuys",
+                    "Leet",
+                    "Power",
+                    "Killers",
+                    "Super"
+            ];
+
+            function isStudentTerm(term) {
+                return (term.match("^@[^@]*$") !== null);
+            }
+            function isGroupTerm(term) {
+                return (term.match("^@@[^@]*$") !== null);
+            }
+            function getTermValue(term) {
+                return term.split("@").pop()
+            }
+            function getCurrentTerm(term) {
+                var caretPosition = $("#content")[0].selectionStart;
+                return term.slice(0, caretPosition).split(" ").pop();
+            }
+
+            $( "#content" )
+                // don't navigate away from the field on tab when selecting an item
+                    .bind( "keydown", function( event ) {
+                        if ( event.keyCode === $.ui.keyCode.TAB &&
+                                $( this ).data( "ui-autocomplete" ).menu.active ) {
+                            event.preventDefault();
+                        }
+                    })
+                    .autocomplete({
+                        minLength: 0,
+                        source: function( request, response ) {
+                            // Get the current term (separated by ' ' from everything before it and located before the
+                            // caret.
+                            var fullTerm = getCurrentTerm(request.term);
+                            // Get the term value (strip '@')
+                            var term = getTermValue(fullTerm);
+                            if (isStudentTerm(fullTerm)) {
+                                // If starting with '@', get the students list
+//                                response($.ui.autocomplete.filter(studentTags, term));
+                                $.getJSON("/autocomplete/students/", response);
+                            } else if (isGroupTerm(fullTerm)) {
+                                // If starting with '@@', get the groups list
+                                response($.ui.autocomplete.filter(groupTags, term));
+                            } else {
+                                // If not a valid magic - return nothing.
+                                response([]);
+                            }
+                        },
+                        focus: function() {
+                            // prevent value inserted on focus
+                            return false;
+                        },
+                        select: function( event, ui ) {
+                            // Ugly and only partially working hack to autocomplete in the middle of a line.
+                            var trailingText = this.value.slice(this.selectionStart);
+                            var currentText = this.value.slice(0, this.selectionStart);
+                            var terms = currentText.split(" ");
+                            var currentTerm = terms.pop();
+                            var headingText = terms.join(" ");
+                            if (isStudentTerm(currentTerm)) {
+                                currentTerm = "@" + ui.item.number;
+                            } else {//isGroupTerm
+                                currentTerm = "@@" + ui.item.value;
+                            }
+
+                            if (headingText.length !== 0) {
+                                headingText += " ";
+                            }
+
+                            this.value = headingText + currentTerm + trailingText;
+                            return false;
+                        }
+                    })
+                    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                return $("<li>")
+                        .append("<a>" + item.number + "<br>" + item.first_name + " " + item.last_name + "</a>")
+                        .appendTo(ul);
+            };
+        });
+        </script>
 
 {% end %}
