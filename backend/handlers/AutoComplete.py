@@ -1,5 +1,5 @@
 import tornado.web
-
+from backend.user_auth import user_required
 
 class AutoCompleteHandler(tornado.web.RequestHandler):
     """
@@ -13,6 +13,7 @@ class AutoCompleteHandler(tornado.web.RequestHandler):
         if exclude_fields is None:
             self._exclude_fields = {}
 
+    @user_required
     def get(self, filter_option):
         """
         The GET Handler for the AutoCompleteHandler.
