@@ -4,8 +4,9 @@ from tornado import template
 from backend.user_auth import user_required
 from backend.models.tweet import Tweet
 import datetime
-from backend.models.users import Teacher
+from backend.models.users import Teacher, Student
 import backend.configuration as configuration
+from backend.parsers.tweet_parser import get_users
 
 
 class TweetPostHandler(tornado.web.RequestHandler):
@@ -18,6 +19,11 @@ class TweetPostHandler(tornado.web.RequestHandler):
             content=self.get_argument("content"),
             author=user
         )
+
+        mentioned_user_numbers = get_users(self.get_argument("content"))
+        for user_number in mentioned_user_numbers:
+            mentioned_user = Student.objects.get(number=user_number)
+            new_tweet.students.append(mentioned_user)
 
         new_tweet.save()
 
