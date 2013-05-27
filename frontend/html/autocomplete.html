@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Autocomplete - Multiple values</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(function() {
+
+            var studentTags = [
+                    "Dan",
+                    "Bob",
+                    "Bill",
+                    "Erik",
+                    "Will",
+                    "Jon",
+                    "Alice"
+            ];
+
+            var groupTags = [
+                    "CoolGuys",
+                    "Leet",
+                    "Power",
+                    "Killers",
+                    "Super"
+            ];
+
+            function isStudentTerm(term) {
+                return (term.match("^@[^@]*$") !== null);
+            }
+            function isGroupTerm(term) {
+                return (term.match("^@@[^@]*$") !== null);
+            }
+            function getTermValue(term) {
+                return term.split("@").pop()
+            }
+            function getCurrentTerm(term) {
+                var caretPosition = $("#tags")[0].selectionStart;
+                return term.slice(0, caretPosition).split(" ").pop();
+            }
+
+            $( "#tags" )
+                // don't navigate away from the field on tab when selecting an item
+                    .bind( "keydown", function( event ) {
+                        if ( event.keyCode === $.ui.keyCode.TAB &&
+                                $( this ).data( "ui-autocomplete" ).menu.active ) {
+                            event.preventDefault();
+                        }
+                    })
+                    .autocomplete({
+                        minLength: 0,
+                        source: function( request, response ) {
+                            // Get the current term (separated by ' ' from everything before it and located before the
+                            // caret.
+                            var fullTerm = getCurrentTerm(request.term);
+                            // Get the term value (strip '@')
+                            var term = getTermValue(fullTerm);
+                            if (isStudentTerm(fullTerm)) {
+                                // If starting with '@', get the students list
+                                response($.ui.autocomplete.filter(studentTags, term));
+                            } else if (isGroupTerm(fullTerm)) {
+                                // If starting with '@@', get the groups list
+                                response($.ui.autocomplete.filter(groupTags, term));
+                            } else {
+                                // If not a valid magic - return nothing.
+                                response([]);
+                            }
+                        },
+                        focus: function() {
+                            // prevent value inserted on focus
+                            return false;
+                        },
+                        select: function( event, ui ) {
+                            // Ugly and only partially working hack to autocomplete in the middle of a line.
+                            var trailingText = this.value.slice(this.selectionStart);
+                            var currentText = this.value.slice(0, this.selectionStart);
+                            var terms = currentText.split(" ");
+                            var currentTerm = terms.pop();
+                            var headingText = terms.join(" ");
+                            if (isStudentTerm(currentTerm)) {
+                                currentTerm = "@" + ui.item.value;
+                            } else {//isGroupTerm
+                                currentTerm = "@@" + ui.item.value;
+                            }
+
+                            if (headingText.length !== 0) {
+                                headingText += " ";
+                            }
+
+                            this.value = headingText + currentTerm + trailingText;
+                            return false;
+                        }
+                    });
+        });
+    </script>
+</head>
+<body>
+
+<div class="ui-widget">
+    <label for="tags">Tag programming languages: </label>
+    <input id="tags" size="50" />
+</div>
+
+
+</body>
+</html>
