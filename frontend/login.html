@@ -1,31 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    {% if error == "wrong-username-password" %}
-    <div class="alert alert-danger">שם משתמש או סיסמה לא נכונים!</div>
-    {% end %}
-    <div class="row">
-        <form class="well form-horizontal span5 offset3" style="margin-top: 20px" method="post">
-            <h3>כניסה למערכת</h3>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="text" name="username" id="username" placeholder="שם משתמש">
-                </div>
+	<div class="row">
+		<div class="span4 offset4 well">
+			<legend>כניסה למערכת</legend>
+          	<div class="alert alert-error">
+                <a class="close" data-dismiss="alert" href="#">×</a>שם משתמש או סיסמה לא נכונים!
             </div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="password" name="password" id="password" placeholder="סיסאה">
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" class="btn btn-large btn-primary">היכנס</button>
-                    <a href="/register" class="btn btn-large btn-success">הרשמה</a>
-                </div>
-            </div>
-        </form>
-
-    </div>
+			<form method="POST"  accept-charset="UTF-8">
+			<input type="text" id="username" class="span4" name="username" placeholder="שם משתמש">
+			<input type="password" id="password" class="span4" name="password" placeholder="סיסמא">
+            <button type="submit" name="submit" class="btn btn-block btn-primary">היכנס</button>
+            <a href="/register" class="btn btn-block btn-success">הרשמה</a>
+			</form>
+		</div>
+	</div>
 </div>
-
 {% end %}
