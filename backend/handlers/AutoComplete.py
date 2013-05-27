@@ -19,7 +19,7 @@ class AutoCompleteHandler(tornado.web.RequestHandler):
         The GET Handler for the AutoCompleteHandler.
         """
         filter_query = {}
-        if filter_option: # if a filter is given in the url we search like with '__startswith'
+        if filter_option:  # if a filter is given in the url we search like with '__startswith'
             filter_query = {self._autocomplete_field: {"$regex": u"^{}".format(filter_option)}}
         results = self._model.objects.filter(__raw__=filter_query).only(*self._exclude_fields)
         if not results:

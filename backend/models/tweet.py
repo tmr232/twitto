@@ -8,6 +8,8 @@ from mongoengine import *
 import mongoengine.signals
 from backend.models.users import Teacher, Student
 from backend.models.course import Lesson
+from backend.parsers.tweet_parser import get_users
+from mongoengine.queryset import DoesNotExist
 
 
 class Tweet(Document):
