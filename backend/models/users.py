@@ -11,7 +11,9 @@ class Student(Document):
     first_name = StringField(max_length=40, required=True)
     last_name = StringField(max_length=40, required=True)
     id_number = StringField()  # The Student's Identification Number
-    number = IntField(required=True)  # An Inner numbering scheme for the student
+    number = StringField(required=True, max_length=4)  # An Inner numbering scheme for the student
+                                                       # This is a string because of the way
+                                                       # we search it.
     year = IntField(required=True)
     domain_username = StringField()  # The Student's username in Microsoft Windows Domain
     picture_path = StringField()  # The path to the student's picture in the server

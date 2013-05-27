@@ -4,6 +4,7 @@ from tornado.options import define, options
 from backend import configuration
 from backend.handlers.RESTFactory import RESTHandlerFactory
 from backend.handlers.base import *
+from backend.handlers.AutoComplete import *
 from backend.models.users import Student, Group
 from backend.models.course import *
 import mongoengine
@@ -18,7 +19,6 @@ class TwittoApp(tornado.web.Application):
     """
     This is the Twitto Application.
     """
-
     def __init__(self):
         """
         The constructor for the main Twitto Application
@@ -47,6 +47,12 @@ class TwittoApp(tornado.web.Application):
             (r'/lessons', rest_factory.get_model_rest_handler(Lesson)),
             (r'/subjects', rest_factory.get_model_rest_handler(Subject)),
         ])
+
+        # REST API
+        # noinspection PyTypeChecker
+        handlers.extend([
+            (r'/autocomplete/students/(.*)', AutoCompleteHandler, dict(model=Student, autocomplete_field="number")),
+            ])
 
         settings = {"cookie_secret": configuration.COOKIE_SECRET}
         super(TwittoApp, self).__init__(handlers, **settings)
