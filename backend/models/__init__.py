@@ -7,7 +7,7 @@ class SerializableModel(Document):
     A Document model that can be serializable to JSON with the option
     to ignore specific fields.
     """
-    meta = {"allow_inheritance" : True}
+    meta = {"allow_inheritance": True}
 
     IGNORE_FIELDS = []
 

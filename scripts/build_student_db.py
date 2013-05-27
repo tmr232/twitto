@@ -7,12 +7,12 @@ print "Connecting to database", configuration.DATABASE_NAME
 connect(configuration.DATABASE_NAME)
 
 students = [
-    Student(first_name="Mike", last_name="Hirsh", year=2013, number=1),
-    Student(first_name="Jimmy", last_name="Hertzog", year=2013, number=2),
-    Student(first_name="Leo", last_name="Rothshild", year=2013, number=3),
-    Student(first_name="Eliot", last_name="Millard", year=2013, number=4),
-    Student(first_name="Ben", last_name="Landau", year=2013, number=5),
-    Student(first_name="Adam", last_name="Hertz", year=2013, number=6),
+    Student(first_name="Mike", last_name="Hirsh", year=2013, number='1'),
+    Student(first_name="Jimmy", last_name="Hertzog", year=2013, number='2'),
+    Student(first_name="Leo", last_name="Rothshild", year=2013, number='3'),
+    Student(first_name="Eliot", last_name="Millard", year=2013, number='4'),
+    Student(first_name="Ben", last_name="Landau", year=2013, number='5'),
+    Student(first_name="Adam", last_name="Hertz", year=2013, number='6'),
 ]
 
 print 'Saving students'
