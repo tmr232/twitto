@@ -1,5 +1,8 @@
 body{
 }
+legend{
+   margin-bottom: 10px;
+}
 .navbar .brand {
     float: right;
 }

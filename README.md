@@ -31,4 +31,3 @@ twitto
     * Punishments
     * Stuff to keep track of (like difficulty in some areas and such)
 ## Frontend
-

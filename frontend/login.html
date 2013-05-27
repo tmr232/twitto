@@ -1,19 +1,26 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="container">
-	<div class="row">
-		<div class="span4 offset4 well">
-			<legend>כניסה למערכת</legend>
-          	<div class="alert alert-error">
-                <a class="close" data-dismiss="alert" href="#">×</a>שם משתמש או סיסמה לא נכונים!
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/bootstrap-rtl.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="span4 offset4 well" style="margin-top: 30px;">
+                <legend>כניסה למערכת</legend>
+                {% if error == "wrong-username-password" %}
+                <div class="alert alert-error">שם משתמש או סיסמה לא נכונים!</div>
+                {% end %}
+                <form method="POST" accept-charset="US-ASCII">
+                <input type="text" id="username" class="span4" name="username" placeholder="שם משתמש">
+                <input type="password" id="password" class="span4" name="password" placeholder="סיסמא">
+                <button type="submit" name="submit" class="btn btn-block btn-primary">היכנס</button>
+                <a href="/register" class="btn btn-block btn-success">הרשמה</a>
+                </form>
             </div>
-			<form method="POST"  accept-charset="UTF-8">
-			<input type="text" id="username" class="span4" name="username" placeholder="שם משתמש">
-			<input type="password" id="password" class="span4" name="password" placeholder="סיסמא">
-            <button type="submit" name="submit" class="btn btn-block btn-primary">היכנס</button>
-            <a href="/register" class="btn btn-block btn-success">הרשמה</a>
-			</form>
-		</div>
-	</div>
-</div>
-{% end %}
+        </div>
+    </div>
+</body>
+</html>
