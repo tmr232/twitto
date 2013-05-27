@@ -5,6 +5,7 @@ from backend import configuration
 from backend.handlers.RESTFactory import RESTHandlerFactory
 from backend.handlers.base import *
 from backend.handlers.AutoComplete import *
+from backend.handlers.tweet_handlers import TweetPostHandler
 from backend.models.users import Student, Group
 from backend.models.course import *
 import mongoengine
@@ -36,7 +37,7 @@ class TwittoApp(tornado.web.Application):
             (r'/login', LoginHandler),
             (r'/logout', LogoutHandler),
             (r'/register', RegisterHandler),
-            (r'/tweet', PostHandler),
+            (r'/tweet', TweetPostHandler),
             (r'/', IndexHandler),
         ])
 

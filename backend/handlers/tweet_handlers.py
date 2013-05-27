@@ -8,7 +8,7 @@ from backend.models.users import Teacher
 import backend.configuration as configuration
 
 
-class PostHandler(tornado.web.RequestHandler):
+class TweetPostHandler(tornado.web.RequestHandler):
     @user_required
     def post(self, *args, **kwargs):
         user_id = self.get_secure_cookie("user_id")
