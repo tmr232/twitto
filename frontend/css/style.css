@@ -31,3 +31,7 @@ legend{
 .navbar-inverse .brand strong {
 	font-weight: normal;
 }
+
+.navbar .nav>li{
+    padding: 8px;
+}

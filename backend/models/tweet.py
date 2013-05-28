@@ -8,8 +8,6 @@ from mongoengine import *
 import mongoengine.signals
 from backend.models.users import Teacher, Student
 from backend.models.course import Lesson
-from backend.parsers.tweet_parser import get_users
-from mongoengine.queryset import DoesNotExist
 
 
 class Tweet(Document):
@@ -27,7 +25,9 @@ class Tweet(Document):
     content = StringField(required=True)  # The Tweets text
     tags = ListField(StringField())  # Tags associated with this Tweet
 
-    meta = {'ordering': '-modification_date'}
+    meta = {
+        'ordering': ['-modification_date']
+    }
 
     @classmethod
     def pre_save(cls, sender, document, **kwargs):

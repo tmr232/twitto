@@ -1,9 +1,7 @@
 import tornado.web
-from mongoengine.queryset import DoesNotExist
 from tornado import template
 from backend.user_auth import user_required
 from backend.models.tweet import Tweet
-import datetime
 from backend.models.users import Teacher, Student
 import backend.configuration as configuration
 from backend.parsers.tweet_parser import get_users
@@ -26,8 +24,6 @@ class TweetPostHandler(tornado.web.RequestHandler):
             new_tweet.students.append(mentioned_user)
 
         new_tweet.save()
-
-        self.redirect(r'/tweet')
 
     @user_required
     def get(self):

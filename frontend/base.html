@@ -27,15 +27,15 @@
                 <button class="btn btn-primary btn-small" type="submit" style="margin-top: 2px; margin-right: 5px">חפש</button>
             </form>
             -->
-            <ul class="nav">
+            <ul id="right_menu" class="nav pull-right">
+                <li>
+                    <a href="/tweet">ציוץ</a>
+                </li>
                 <li class="dropdown">
                     <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user" style="margin-left: 10px"></i>{{ user.username if "user" in globals() else "אורח" }} <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                         <li><a href="/logout">יציאה</a></li>
                     </ul>
-                </li>
-                <li>
-                    <a href="/tweet">ציוץ</a>
                 </li>
             </ul>
 

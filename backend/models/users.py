@@ -29,7 +29,7 @@ class Teacher(SerializableModel):
     """
     first_name = StringField(max_length=40, required=True)
     last_name = StringField(max_length=40, required=True)
-    username = StringField(max_length=20, required=True)
+    username = StringField(unique=True, max_length=20, required=True)
     password = StringField(required=True)
     password_salt = BinaryField()
     year = IntField(required=True)
@@ -38,6 +38,10 @@ class Teacher(SerializableModel):
     followed_students = ListField(ReferenceField("Student", reverse_delete_rule=PULL))
 
     IGNORE_FIELDS = ["password_salt", "password"]
+
+    meta = {
+        "collection": "teacher"
+    }
 
     def __init__(self, **values):
         """
