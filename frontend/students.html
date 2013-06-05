@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+        <!--TODO: add 'edit' button, and send edit results via AJAX-->
+        <!--TODO: make a good looking display...-->
+<div class="container">
+    <div class="row">
+       <div class="span6"><h3>{{escape (student.first_name)}} {{escape (student.last_name)}}</h3></div>
+    </div>
+    <div class="row">
+        <div class="span6"><h3>{{escape (student.number)}}</h3></div>
+    </div>
+</div>
+
+{% end %}

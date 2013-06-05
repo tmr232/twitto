@@ -5,6 +5,7 @@ from backend import configuration
 from backend.handlers.RESTFactory import RESTHandlerFactory
 from backend.handlers.base import *
 from backend.handlers.AutoComplete import *
+from backend.handlers.student_handlers import StudentDisplayHandler
 from backend.handlers.tweet_handlers import TweetPostHandler
 from backend.models.users import Student, Group
 from backend.models.course import *
@@ -38,6 +39,7 @@ class TwittoApp(tornado.web.Application):
             (r'/logout', LogoutHandler),
             (r'/register', RegisterHandler),
             (r'/tweet', TweetPostHandler),
+            (r'/students/([\d]{4})/([\d]*)', StudentDisplayHandler),
             (r'/', IndexHandler),
         ])
 
