@@ -18,6 +18,10 @@ class Student(Document):
     domain_username = StringField()  # The Student's username in Microsoft Windows Domain
     picture_path = StringField()  # The path to the student's picture in the server
 
+    birth_date = DateTimeField(required=True, default=datetime.datetime.utcnow) # The student's birth date
+
+    extra_information = StringField() # Extra information about the student for the teachers.
+
     meta = {
         "indexes": ["number", "domain_username"]
     }
